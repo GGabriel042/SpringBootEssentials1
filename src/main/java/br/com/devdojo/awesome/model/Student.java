@@ -28,7 +28,7 @@ public class Student {
     }
 
     private static void studentRepository(){
-        studentList = new ArrayList<>(asList(new Student("Deku",1), new Student("Todoroki",2)));
+        studentList = new ArrayList<>(asList(new Student("Deku",1), new Student("Todoroki",2), new Student("Bakugo", 3)));
     }
 
 
