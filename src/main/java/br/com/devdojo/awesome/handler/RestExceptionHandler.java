@@ -57,17 +57,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
+
+
     @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetails errorDetails  = ErrorDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
-                .status(HttpStatus.NOT_FOUND.value())
-                .title("Resource not found")
+                .status(status.value())
+                .title("Internal Exception")
                 .detail(ex.getMessage())
                 .developerMessage(ex.getClass().getName())
                 .build();
 
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(errorDetails, headers, status);
     }
 }
