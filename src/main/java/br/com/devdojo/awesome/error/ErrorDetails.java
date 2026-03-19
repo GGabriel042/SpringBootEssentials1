@@ -1,6 +1,6 @@
 package br.com.devdojo.awesome.error;
 
-public class ErrorDetail {
+public class ErrorDetails {
     private String title;
     private int status;
     private String detail;
