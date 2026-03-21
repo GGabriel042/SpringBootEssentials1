@@ -8,13 +8,16 @@ public class JavaSpringClientTest {
     public static void main(String[] args) {
 
         Student studentPost = new Student();
-        studentPost.setName("John Wick");
-        studentPost.setEmail("John@pencil.com");
+        studentPost.setName("Joao das flores");
+        studentPost.setEmail("JohnFlores@pencil.com");
+        studentPost.setId(15L);
         JavaClientDao dao = new JavaClientDao();
-        System.out.println(dao.findById(1));
-        List<Student> students = dao.listAll();
-        System.out.println(dao.save(studentPost));
-        System.out.println(students.size());
+//        System.out.println(dao.findById(1));
+//        List<Student> students = dao.listAll();
+//        System.out.println(dao.save(studentPost));
+//        System.out.println(students.size());
 
+//        dao.update(studentPost);
+//        dao.delete(14);
     }
 }
