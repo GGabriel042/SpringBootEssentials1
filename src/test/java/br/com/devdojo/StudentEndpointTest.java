@@ -113,6 +113,16 @@ public class StudentEndpointTest {
 //        Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(404);
         mockMvc.perform(MockMvcRequestBuilders.delete("/v1/admin/students/{id}", -1L))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
+
+    @Test
+    @WithMockUser(username = "xx", password = "xx", roles = {"USER"})
+    public void deleteWhenUserDoesNotHaveRolaAdminShouldReturnStatusCode403() throws Exception {
+        BDDMockito.doNothing().when(studentRepository).delete(1L);
+//        ResponseEntity<String> exchange = restTemplate.exchange("/v1/admin/students/{id}", DELETE, null, String.class, -1L);
+//        Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(404);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/admin/students/{id}", -1L))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 }
