@@ -17,8 +17,11 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
@@ -103,9 +106,13 @@ public class StudentEndpointTest {
 
 
     @Test
-    public void deleteWhenUserHasRolaAdminAndStudentDoesNotExistShouldReturnStatusCode404() {
+    @WithMockUser(username = "xx", password = "xx", roles = {"USER",  "ADMIN"})
+    public void deleteWhenUserHasRolaAdminAndStudentDoesNotExistShouldReturnStatusCode404() throws Exception {
         BDDMockito.doNothing().when(studentRepository).delete(1L);
-        ResponseEntity<String> exchange = restTemplate.exchange("/v1/admin/students/{id}", DELETE, null, String.class, -1L);
-        Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(404);
+//        ResponseEntity<String> exchange = restTemplate.exchange("/v1/admin/students/{id}", DELETE, null, String.class, -1L);
+//        Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(404);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/v1/admin/students/{id}", -1L))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
     }
 }
