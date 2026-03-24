@@ -99,6 +99,13 @@ public class StudentEndpointTest {
         BDDMockito.doNothing().when(studentRepository).delete(1L);
         ResponseEntity<String> exchange = restTemplate.exchange("/v1/admin/students/{id}", DELETE, null, String.class, 1L);
         Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(200);
+    }
 
+
+    @Test
+    public void deleteWhenUserHasRolaAdminAndStudentDoesNotExistShouldReturnStatusCode404() {
+        BDDMockito.doNothing().when(studentRepository).delete(1L);
+        ResponseEntity<String> exchange = restTemplate.exchange("/v1/admin/students/{id}", DELETE, null, String.class, -1L);
+        Assertions.assertThat(exchange.getStatusCodeValue()).isEqualTo(404);
     }
 }
