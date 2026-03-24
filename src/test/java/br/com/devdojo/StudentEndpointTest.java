@@ -44,8 +44,15 @@ public class StudentEndpointTest {
     public void listStudentsWhenUsernameAndPasswordAreIncorrectShouldReturnStatusCode401() {
         restTemplate = restTemplate.withBasicAuth("1", "1");
         ResponseEntity<String> response = restTemplate.getForEntity("/v1/admin/students/", String.class);
-        System.out.println(response.getBody());
         Assertions.assertThat(response.getStatusCode().value()).isEqualTo(401);
     }
+
+    @Test
+    public void getStudentsByIdWhenUsernameAndPasswordAreIncorrectShouldReturnStatusCode401() {
+        restTemplate = restTemplate.withBasicAuth("1", "1");
+        ResponseEntity<String> response = restTemplate.getForEntity("/v1/admin/students/1", String.class);
+        Assertions.assertThat(response.getStatusCode().value()).isEqualTo(401);
+    }
+
 
 }
