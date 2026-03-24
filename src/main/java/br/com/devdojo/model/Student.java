@@ -11,7 +11,7 @@ public class Student extends AbstractEntity{
     @NotEmpty
     private String name;
     @NotEmpty
-    @Email
+    @Email (message = "Digite um email válido")
     private String email;
 
     public Student() {
