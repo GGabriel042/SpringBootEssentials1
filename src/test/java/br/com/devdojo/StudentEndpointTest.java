@@ -125,4 +125,25 @@ public class StudentEndpointTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/v1/admin/students/{id}", -1L))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
+
+
+
+    @Test
+    public void createWhenNameIsNullShouldReturnStatusCode400BadRequest() throws Exception{
+        Student student = new Student(3L, null, "sam@lotr.com");
+        BDDMockito.when(studentRepository.save(student)).thenReturn(student);
+        ResponseEntity<String> response = restTemplate.postForEntity("/v1/admin/students/", student, String.class);
+        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(400);
+        Assertions.assertThat(response.getBody()).contains("fieldMessage","O campo nome do estudante é obrigatório");
+    }
+
+
+    @Test
+    public void createShouldPersistDataAndReturnStatusCode201() throws Exception{
+        Student student = new Student(3L, "Sam", "sam@lotr.com");
+        BDDMockito.when(studentRepository.save(student)).thenReturn(student);
+        ResponseEntity<Student> response = restTemplate.postForEntity("/v1/admin/students/", student, Student.class);
+        Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(201);
+        Assertions.assertThat(response.getBody().getId()).isNotNull();
+    }
 }
