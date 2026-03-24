@@ -78,4 +78,11 @@ public class StudentEndpointTest {
         ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/students/{id}", String.class, student.getId());
         Assertions.assertThat(response.getStatusCode().value()).isEqualTo(200);
     }
+
+
+    @Test
+    public void getStudentsByIdWhenUsernameAndPasswordAreCorrectAndStudentDoesNotExistShouldReturnStatusCode404() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/students/{id}", String.class, -1);
+        Assertions.assertThat(response.getStatusCode().value()).isEqualTo(404);
+    }
 }
