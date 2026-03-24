@@ -69,4 +69,13 @@ public class StudentEndpointTest {
         ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/students/", String.class);
         Assertions.assertThat(response.getStatusCode().value()).isEqualTo(200);
     }
+
+
+    @Test
+    public void getStudentsByIdWhenUsernameAndPasswordAreCorrectShouldReturnStatusCode200() {
+        Student student = new Student(1L, "Legolas", "legolas@lotr.com");
+        BDDMockito.when(studentRepository.findOne(student.getId())).thenReturn(student);
+        ResponseEntity<String> response = restTemplate.getForEntity("/v1/protected/students/{id}", String.class, student.getId());
+        Assertions.assertThat(response.getStatusCode().value()).isEqualTo(200);
+    }
 }
