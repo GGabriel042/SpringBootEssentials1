@@ -42,7 +42,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ValidationErrorDetails manvDetails = ValidationErrorDetails.Builder
                 .newBuilder()
                 .timestamp(new Date().getTime())
-                .status(HttpStatus.NOT_FOUND.value())
+                .status(HttpStatus.BAD_REQUEST.value())
                 .title("Field Validation Error")
                 .detail("Field Validation Error")
                 .developerMessage(manvException.getClass().getName())
@@ -50,7 +50,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 .fieldMessage(fieldMessages)
                 .build();
 
-        return new ResponseEntity<>(manvDetails,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(manvDetails,HttpStatus.BAD_REQUEST);
     }
 
 

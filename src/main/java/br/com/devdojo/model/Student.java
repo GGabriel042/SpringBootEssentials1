@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 
 @Entity
 public class Student extends AbstractEntity{
-    @NotEmpty
+    @NotEmpty(message = "O campo nome do estudante é obrigatório")
     private String name;
     @NotEmpty
     @Email (message = "Digite um email válido")
